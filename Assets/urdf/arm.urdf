@@ -1,16 +1,18 @@
 <?xml version="1.0"?>
 <robot name="arm">
-
   <link name="main_base">
     <visual>
       <origin xyz="0 0 0"/>
       <geometry>
         <cylinder length="0.2" radius="0.6"/>
       </geometry>
-      <material name="yellow"/>
+      <material name="grey">
+        <color rgba="0.2 0.2 0.2 1.0"/>
+      </material>
     </visual>
   </link>
-  <joint name="base_stick1_joint" type="revolute">
+
+  <joint name="팔_회전" type="revolute">
     <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
     <parent link="main_base"/>
     <child link="stick1"/>
@@ -24,55 +26,69 @@
       <geometry>
         <cylinder length="1" radius="0.2"/>
       </geometry>
-      <material name="red"/>
+      <material name="white">
+        <color rgba="0.8 0.8 0.8 1.0"/>
+      </material>
     </visual>
   </link>
-  <joint name="stick1_stick2_joint" type="revolute">
+
+  <joint name="팔_관절1" type="revolute">
     <origin xyz="0.0 0.0 1" rpy="0.0 0.0 0.0"/>
     <parent link="stick1"/>
     <child link="stick2"/>
     <limit lower="-1.57" upper="1.57" effort="1000" velocity="5.0"/>
     <axis xyz="1 0 0"/>
   </joint>
+
   <link name="stick2">
     <visual>
       <origin xyz="0 0 0.5"/>
       <geometry>
         <cylinder length="1" radius="0.2"/>
       </geometry>
-      <material name="green"/>
+      <material name="white">
+        <color rgba="0.8 0.8 0.8 1.0"/>
+      </material>
     </visual>
   </link>
-  <joint name="stick2_stick3_joint" type="revolute">
+
+  <joint name="팔_관절2" type="revolute">
     <origin xyz="0.0 0.0 1" rpy="0.0 0.0 0.0"/>
     <parent link="stick2"/>
     <child link="stick3"/>
     <limit lower="-1.57" upper="1.57" effort="1000" velocity="5.0"/>
     <axis xyz="1 0 0"/>
   </joint>
+
   <link name="stick3">
     <visual>
       <origin xyz="0 0 0.5"/>
       <geometry>
         <cylinder length="1" radius="0.2"/>
       </geometry>
-      <material name="blue"/>
+      <material name="white">
+        <color rgba="0.8 0.8 0.8 1.0"/>
+      </material>
     </visual>
   </link>
-  <joint name="stick3_stick4_joint" type="prismatic">
+
+  <joint name="팔_길이조절" type="prismatic">
     <origin xyz="0.0 0.0 0.5" rpy="0.0 0.0 0.0"/>
     <parent link="stick3"/>
     <child link="stick4"/>
     <limit lower="-0.5" upper="0.5" effort="1000" velocity="5.0"/>
     <axis xyz="0 0 1"/>
   </joint>
+  
   <link name="stick4">
     <visual>
       <origin xyz="0 0 0.5"/>
       <geometry>
         <cylinder length="1" radius="0.15"/>
       </geometry>
-      <material name="puple"/>
+      <material name="white">
+        <color rgba="0.8 0.8 0.8 1.0"/>
+      </material>
     </visual>
   </link>
 </robot>

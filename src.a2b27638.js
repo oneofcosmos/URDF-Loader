@@ -47390,10 +47390,10 @@ document.querySelectorAll('#urdf-options li[urdf]').forEach(function (el) {
   el.addEventListener('click', function (e) {
     var urdf = e.target.getAttribute('urdf');
     var color = e.target.getAttribute('color');
-    viewer.up = '-Z';
+    viewer.up = '+Z';
     document.getElementById('up-select').value = viewer.up;
     viewer.urdf = urdf;
-    animToggle.classList.add('checked');
+    // animToggle.classList.add('checked');
     setColor(color);
   });
 });

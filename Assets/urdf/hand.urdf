@@ -7,14 +7,14 @@
       <geometry>
         <mesh filename="../meshes/base.stl" scale="0.01 0.01 0.01"/>
       </geometry>
-      <!-- <material name="grey">
-        <color rgba="0.2 0.2 0.2 0.5"/>
-      </material> -->
+      <material name="grey">
+        <color rgba="0.2 0.2 0.2 1.0"/>
+      </material>
     </visual>
   </link>
 
   <!-- finger_1 -->
-  <joint name="finger_1_joint0" type="fixed">
+  <joint name="엄지_연결부" type="fixed">
     <origin xyz="0.098 0 0.142" rpy="0 0 0" />
     <parent link="base_link"/>
     <child link="finger_1_link0"/>
@@ -35,7 +35,7 @@
     </visual>
   </link>
   
-  <joint name="finger_1_joint1" type="revolute">
+  <joint name="엄지_요" type="revolute">
     <origin xyz="0.07 0 0.284" rpy="0 0 0" />
     <parent link="finger_1_link0"/>
     <child link="finger_1_link1"/>
@@ -54,7 +54,7 @@
     </visual>
   </link>
 
-  <joint name="finger_1_joint2" type="revolute">
+  <joint name="엄지_롤" type="revolute">
     <origin xyz="0.123 0.005 0.293" rpy="0 1.57 0" />    <!-- add offset -->
     <parent link="finger_1_link1"/>
     <child link="finger_1_link2"/>
@@ -74,7 +74,7 @@
   </link>
 
   <!-- motor 3 -->
-  <joint name="finger_1_joint3" type="revolute">
+  <joint name="엄지_피치1" type="revolute">
     <origin xyz="-0.1 0 0.2" rpy="1.57 0 0" />
     <parent link="finger_1_link2"/>
     <child link="finger_1_link3"/>
@@ -93,7 +93,7 @@
   </link>
 
   <!-- motor 4 -->
-  <joint name="finger_1_joint4" type="revolute">
+  <joint name="엄지_피치2" type="revolute">
     <origin xyz="0 0.445 0" rpy="0 0 0" />
     <parent link="finger_1_link3"/>
     <child link="finger_1_link4"/>
@@ -113,7 +113,7 @@
 
 
   <!-- finger_2 -->
-  <joint name="finger_2_joint0" type="fixed">
+  <joint name="검지_연결부" type="fixed">
     <origin xyz="-0.05 -0.196 0.142" rpy="0 0 3.14" />
     <parent link="base_link"/>
     <child link="finger_2_link0"/>
@@ -131,7 +131,7 @@
     </visual>
   </link>
 
-  <joint name="finger_2_joint1" type="revolute">
+  <joint name="검지_요" type="revolute">
     <origin xyz="0.07 0 0.284" rpy="0 0 0" />
     <parent link="finger_2_link0"/>
     <child link="finger_2_link1"/>
@@ -150,7 +150,7 @@
     </visual>
   </link>
 
-  <joint name="finger_2_joint2" type="revolute">
+  <joint name="검지_롤" type="revolute">
     <origin xyz="0.123 0.005 0.293" rpy="0 1.57 0" />    <!-- add offset -->
     <parent link="finger_2_link1"/>
     <child link="finger_2_link2"/>
@@ -170,7 +170,7 @@
   </link>
 
   <!-- motor 3 -->
-  <joint name="finger_2_joint3" type="revolute">
+  <joint name="검지_피치1" type="revolute">
     <origin xyz="-0.1 0 0.2" rpy="1.57 0 0" />
     <parent link="finger_2_link2"/>
     <child link="finger_2_link3"/>
@@ -189,7 +189,7 @@
   </link>
 
   <!-- motor 4 -->
-  <joint name="finger_2_joint4" type="revolute">
+  <joint name="검지_피치2" type="revolute">
     <origin xyz="0 0.445 0" rpy="0 0 0" />
     <parent link="finger_2_link3"/>
     <child link="finger_2_link4"/>
@@ -209,7 +209,7 @@
 
 
   <!-- finger_3 -->
-  <joint name="finger_3_joint0" type="fixed">
+  <joint name="중지_연결부" type="fixed">
     <origin xyz="-0.05 0.196 0.142" rpy="0 0 3.14" />
     <parent link="base_link"/>
     <child link="finger_3_link0"/>
@@ -226,7 +226,7 @@
     </visual>
   </link>
 
-  <joint name="finger_3_joint1" type="revolute">
+  <joint name="중지_요" type="revolute">
     <origin xyz="0.07 0 0.284" rpy="0 0 0" />
     <parent link="finger_3_link0"/>
     <child link="finger_3_link1"/>
@@ -245,7 +245,7 @@
     </visual>
   </link>
 
-  <joint name="finger_3_joint2" type="revolute">
+  <joint name="중지_롤" type="revolute">
     <origin xyz="0.123 +0.005 0.293" rpy="0 1.57 0" />    <!-- add offset -->
     <parent link="finger_3_link1"/>
     <child link="finger_3_link2"/>
@@ -265,7 +265,7 @@
   </link>
 
   <!-- motor 3 -->
-  <joint name="finger_3_joint3" type="revolute">
+  <joint name="중지_피치1" type="revolute">
     <origin xyz="-0.1 0 0.2" rpy="1.57 0 0" />
     <parent link="finger_3_link2"/>
     <child link="finger_3_link3"/>
@@ -284,7 +284,7 @@
   </link>
 
   <!-- motor 4 -->
-  <joint name="finger_3_joint4" type="revolute">
+  <joint name="중지_피치2" type="revolute">
     <origin xyz="0 0.445 0" rpy="0 0 0" />
     <parent link="finger_3_link3"/>
     <child link="finger_3_link4"/>
@@ -304,7 +304,7 @@
 
 
   <!-- hand palm -->
-  <joint name="palm_joint" type="fixed">
+  <joint name="손바닥_연결부" type="fixed">
     <origin xyz="0 0 0.7" rpy="0 0 0" />
     <parent link="base_link"/>
     <child link="palm_link"/>
@@ -317,7 +317,9 @@
       <geometry>
         <mesh filename="../meshes/housing.stl" scale="0.01 0.01 0.01"/>
       </geometry>
-      <material name="black"/>
+      <material name="black">
+        <color rgba="0.0 0.0 0.0 1.0"/>
+      </material>
     </visual>
   </link>
 

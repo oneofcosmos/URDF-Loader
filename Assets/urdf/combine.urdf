@@ -1,13 +1,426 @@
 <?xml version="1.0"?>
-<robot name="combine" xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <xacro:include filename="./arm.urdf" />
+<robot name="combine">
+  <link name="main_base">
+    <visual>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.2" radius="0.6"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.2 0.2 0.2 1.0"/>
+      </material>
+    </visual>
+  </link>
 
-  <joint name="joint_name" type="revolute">
+  <joint name="팔_회전" type="revolute">
+    <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <parent link="main_base"/>
+    <child link="stick1"/>
+    <limit lower="-3.14" upper="3.14" effort="1000" velocity="0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="stick1">
+    <visual>
+      <origin xyz="0 0 0.5"/>
+      <geometry>
+        <cylinder length="1" radius="0.2"/>
+      </geometry>
+      <material name="white">
+        <color rgba="0.8 0.8 0.8 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="팔_관절1" type="revolute">
+    <origin xyz="0.0 0.0 1" rpy="0.0 0.0 0.0"/>
+    <parent link="stick1"/>
+    <child link="stick2"/>
+    <limit lower="-1.57" upper="1.57" effort="1000" velocity="5.0"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+
+  <link name="stick2">
+    <visual>
+      <origin xyz="0 0 0.5"/>
+      <geometry>
+        <cylinder length="1" radius="0.2"/>
+      </geometry>
+      <material name="white">
+        <color rgba="0.8 0.8 0.8 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="팔_관절2" type="revolute">
+    <origin xyz="0.0 0.0 1" rpy="0.0 0.0 0.0"/>
+    <parent link="stick2"/>
+    <child link="stick3"/>
+    <limit lower="-1.57" upper="1.57" effort="1000" velocity="5.0"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+
+  <link name="stick3">
+    <visual>
+      <origin xyz="0 0 0.5"/>
+      <geometry>
+        <cylinder length="1" radius="0.2"/>
+      </geometry>
+      <material name="white">
+        <color rgba="0.8 0.8 0.8 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="팔_길이조절" type="prismatic">
+    <origin xyz="0.0 0.0 0.5" rpy="0.0 0.0 0.0"/>
+    <parent link="stick3"/>
+    <child link="stick4"/>
+    <limit lower="-0.5" upper="0.5" effort="1000" velocity="5.0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+  
+  <link name="stick4">
+    <visual>
+      <origin xyz="0 0 0.5"/>
+      <geometry>
+        <cylinder length="1" radius="0.15"/>
+      </geometry>
+      <material name="white">
+        <color rgba="0.8 0.8 0.8 1.0"/>
+      </material>
+    </visual>
+  </link>
+  <joint name="손목_회전" type="revolute">
     <origin xyz="0.0 0.0 1.2" rpy="0.0 0.0 0.0"/>
     <parent link="stick4"/>
     <child link="base_link"/>
     <axis xyz="0.0 0.0 1.0"/>
     <limit lower="-3.14" upper="3.14" effort="1000" velocity="5.0"/>
   </joint>
-  <xacro:include filename="./hand.urdf" />
+<!-- Robot hand base-->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 -1.57"/>
+      <geometry>
+        <mesh filename="../meshes/base.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="grey">
+        <color rgba="0.2 0.2 0.2 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <!-- finger_1 -->
+  <joint name="엄지_연결부" type="fixed">
+    <origin xyz="0.098 0 0.142" rpy="0 0 0" />
+    <parent link="base_link"/>
+    <child link="finger_1_link0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <!-- motor 1 -->
+  <link name="finger_1_link0">   
+    <visual>
+      <origin xyz="0 0 0.142" rpy="0 0 1.57"/>
+      <geometry>
+        <mesh filename="../meshes/finger0.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+  </link>
+  
+  <joint name="엄지_요" type="revolute">
+    <origin xyz="0.07 0 0.284" rpy="0 0 0" />
+    <parent link="finger_1_link0"/>
+    <child link="finger_1_link1"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" lower="-0.785" upper="0.785" velocity="5.027"/>
+  </joint>
+
+  <!-- motor 2 -->
+  <link name="finger_1_link1">
+    <visual>
+      <origin xyz="0 0 0.219" rpy="0 0 1.57"/>
+      <geometry>
+        <mesh filename="../meshes/finger1.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+  </link>
+
+  <joint name="엄지_롤" type="revolute">
+    <origin xyz="0.123 0.005 0.293" rpy="0 1.57 0" />    <!-- add offset -->
+    <parent link="finger_1_link1"/>
+    <child link="finger_1_link2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" lower="-1.57" upper="1.57" velocity="5.027"/>
+  </joint>
+
+  <!-- link -->
+  <link name="finger_1_link2">
+    <visual>
+      <origin xyz="-0.05 -0.01 0.1" rpy="0 0 1.57"/> <!-- add offset -->
+      <geometry>
+        <mesh filename="../meshes/link.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+  </link>
+
+  <!-- motor 3 -->
+  <joint name="엄지_피치1" type="revolute">
+    <origin xyz="-0.1 0 0.2" rpy="1.57 0 0" />
+    <parent link="finger_1_link2"/>
+    <child link="finger_1_link3"/>
+    <limit effort="1000" lower="0" upper="1.57" velocity="5.027"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="finger_1_link3">
+    <visual>
+      <origin xyz="0 0.142" rpy="-1.57 1.57 0"/>
+      <geometry>
+        <mesh filename="../meshes/finger2.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+  </link>
+
+  <!-- motor 4 -->
+  <joint name="엄지_피치2" type="revolute">
+    <origin xyz="0 0.445 0" rpy="0 0 0" />
+    <parent link="finger_1_link3"/>
+    <child link="finger_1_link4"/>
+    <limit effort="1000" lower="0" upper="1.57" velocity="5.027"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="finger_1_link4">
+    <visual>
+      <origin xyz="-0.01 0.22 -0.01" rpy="-1.57 1.57 0"/>
+      <geometry>
+        <mesh filename="../meshes/finger3.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+  </link>
+
+
+  <!-- finger_2 -->
+  <joint name="검지_연결부" type="fixed">
+    <origin xyz="-0.05 -0.196 0.142" rpy="0 0 3.14" />
+    <parent link="base_link"/>
+    <child link="finger_2_link0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+
+  <link name="finger_2_link0">
+    <visual>
+      <origin xyz="0 0 0.142" rpy="0 0 1.57"/>
+      <geometry>
+        <mesh filename="../meshes/finger0.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+  </link>
+
+  <joint name="검지_요" type="revolute">
+    <origin xyz="0.07 0 0.284" rpy="0 0 0" />
+    <parent link="finger_2_link0"/>
+    <child link="finger_2_link1"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" lower="0" upper="0.785" velocity="5.027"/>
+  </joint>
+
+  <!-- motor 2 -->
+  <link name="finger_2_link1">
+    <visual>
+      <origin xyz="0 0 0.219" rpy="0 0 1.57"/>
+      <geometry>
+        <mesh filename="../meshes/finger1.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+  </link>
+
+  <joint name="검지_롤" type="revolute">
+    <origin xyz="0.123 0.005 0.293" rpy="0 1.57 0" />    <!-- add offset -->
+    <parent link="finger_2_link1"/>
+    <child link="finger_2_link2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" lower="-1.57" upper="1.57" velocity="5.027"/>
+  </joint>
+
+  <!-- link -->
+  <link name="finger_2_link2">
+    <visual>
+      <origin xyz="-0.05 -0.01 0.1" rpy="0 0 1.57"/> <!-- add offset -->
+      <geometry>
+        <mesh filename="../meshes/link.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+  </link>
+
+  <!-- motor 3 -->
+  <joint name="검지_피치1" type="revolute">
+    <origin xyz="-0.1 0 0.2" rpy="1.57 0 0" />
+    <parent link="finger_2_link2"/>
+    <child link="finger_2_link3"/>
+    <limit effort="1000" lower="0" upper="1.57" velocity="5.027"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="finger_2_link3">
+    <visual>
+      <origin xyz="0 0.142 0" rpy="-1.57 1.57 0"/>
+      <geometry>
+        <mesh filename="../meshes/finger2.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+  </link>
+
+  <!-- motor 4 -->
+  <joint name="검지_피치2" type="revolute">
+    <origin xyz="0 0.445 0" rpy="0 0 0" />
+    <parent link="finger_2_link3"/>
+    <child link="finger_2_link4"/>
+    <limit effort="1000" lower="0" upper="1.57" velocity="5.027"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="finger_2_link4">
+    <visual>
+      <origin xyz="-0.01 0.22 -0.01" rpy="-1.57 1.57 0"/>
+      <geometry>
+        <mesh filename="../meshes/finger3.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+  </link>
+
+
+  <!-- finger_3 -->
+  <joint name="중지_연결부" type="fixed">
+    <origin xyz="-0.05 0.196 0.142" rpy="0 0 3.14" />
+    <parent link="base_link"/>
+    <child link="finger_3_link0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="finger_3_link0">
+    <visual>
+      <origin xyz="0 0 0.142" rpy="0 0 1.57"/>
+      <geometry>
+        <mesh filename="../meshes/finger0.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+  </link>
+
+  <joint name="중지_요" type="revolute">
+    <origin xyz="0.07 0 0.284" rpy="0 0 0" />
+    <parent link="finger_3_link0"/>
+    <child link="finger_3_link1"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" lower="-0.785" upper="0" velocity="5.027"/>
+  </joint>
+
+  <!-- motor 2 -->
+  <link name="finger_3_link1">
+    <visual>
+      <origin xyz="0 0 0.219" rpy="0 0 1.57"/>
+      <geometry>
+        <mesh filename="../meshes/finger1.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+  </link>
+
+  <joint name="중지_롤" type="revolute">
+    <origin xyz="0.123 +0.005 0.293" rpy="0 1.57 0" />    <!-- add offset -->
+    <parent link="finger_3_link1"/>
+    <child link="finger_3_link2"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1000" lower="-1.57" upper="1.57" velocity="5.027"/>
+  </joint>
+
+  <!-- link -->
+  <link name="finger_3_link2">
+    <visual>
+      <origin xyz="-0.05 -0.01 0.1" rpy="0 0 1.57"/> <!-- add offset -->
+      <geometry>
+        <mesh filename="../meshes/link.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+  </link>
+
+  <!-- motor 3 -->
+  <joint name="중지_피치1" type="revolute">
+    <origin xyz="-0.1 0 0.2" rpy="1.57 0 0" />
+    <parent link="finger_3_link2"/>
+    <child link="finger_3_link3"/>
+    <limit effort="1000" lower="0" upper="1.57" velocity="5.027"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="finger_3_link3">
+    <visual>
+      <origin xyz="0 0.142 0" rpy="-1.57 1.57 0"/>
+      <geometry>
+        <mesh filename="../meshes/finger2.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+  </link>
+
+  <!-- motor 4 -->
+  <joint name="중지_피치2" type="revolute">
+    <origin xyz="0 0.445 0" rpy="0 0 0" />
+    <parent link="finger_3_link3"/>
+    <child link="finger_3_link4"/>
+    <limit effort="1000" lower="0" upper="1.57" velocity="5.027"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="finger_3_link4">
+    <visual>
+      <origin xyz="-0.01 0.22 -0.01" rpy="-1.57 1.57 0"/>
+      <geometry>
+        <mesh filename="../meshes/finger3.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="green"/>
+    </visual>
+  </link>
+
+
+  <!-- hand palm -->
+  <joint name="손바닥_연결부" type="fixed">
+    <origin xyz="0 0 0.7" rpy="0 0 0" />
+    <parent link="base_link"/>
+    <child link="palm_link"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <link name="palm_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 -1.57"/>
+      <geometry>
+        <mesh filename="../meshes/housing.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="black">
+        <color rgba="0.0 0.0 0.0 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+
+
 </robot>

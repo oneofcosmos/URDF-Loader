@@ -12,19 +12,20 @@
         <script src="redirect.9e0f3bb7.js"></script>
     <script src="styles.8986bff4.js"></script></head>
     <body tabindex="0">
-        <div id="menu" style="visibility:hidden;">
+        <div id="menu">
             <ul id="urdf-options">
-                <li urdf="./Assets/urdf/arm.urdf" color="#E91E63">ARM</li>
-                <li urdf="./Assets/urdf/hand.urdf" color="#E91E63">HAND</li>
-                <li urdf="./Assets/urdf/combine.urdf" color="#E91E63">COMBINE</li>
+                <li urdf="./Assets/urdf/arm.urdf" color="#2E508D">ARM</li>
+                <li urdf="./Assets/urdf/hand.urdf" color="#2E508D">HAND</li>
+                <li urdf="./Assets/urdf/combine.urdf" color="#2E508D">ARM & HAND</li>
             </ul>
 
             <div id="controls">
-                <div id="toggle-controls"></div>
-                <div>Drag and drop a set of URDF files! <br> (Chrome Only)</div>
+                <div id="toggle-controls" style="visibility:hidden; display: none;"></div>
+                <div style="visibility:hidden; display: none;">Drag and drop a set of URDF files! <br> (Chrome Only)</div>
                 <div id="ignore-joint-limits" class="toggle">Ignore Joint Limits</div>
                 <div id="do-animate" class="toggle">Animate Joints</div>
                 <label>
+                <!-- <label style="visibility:hidden; display: none;"> -->
                     Up Axis
                     <select id="up-select">
                         <option value="+X">+X</option>
@@ -38,7 +39,8 @@
                 <ul></ul>
             </div>
         </div>
-        <urdf-viewer up="+Z" display-shadow="" tabindex="0"></urdf-viewer>
+        <!-- <urdf-viewer up="+Z" display-shadow="" tabindex="0"></urdf-viewer> -->
+        <urdf-viewer up="+Z" tabindex="0"></urdf-viewer>
 
         <script src="src.a2b27638.js"></script>
     </body>
