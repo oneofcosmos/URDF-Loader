@@ -11,12 +11,12 @@
         <link href="styles.8986bff4.css" type="text/css" rel="stylesheet">
         <script src="redirect.9e0f3bb7.js"></script>
     <script src="styles.8986bff4.js"></script></head>
-    <body tabindex="0">
+    <body tabindex="0" style="display: flex;">
         <div id="menu">
             <ul id="urdf-options">
-                <li urdf="./Assets/urdf/arm.urdf" color="#2E508D">ARM</li>
+                <!-- <li urdf="./Assets/urdf/arm.urdf" color="#2E508D">ARM</li> -->
                 <li urdf="./Assets/urdf/hand.urdf" color="#2E508D">HAND</li>
-                <li urdf="./Assets/urdf/combine.urdf" color="#2E508D">ARM & HAND</li>
+                <!-- <li urdf="./Assets/urdf/combine.urdf" color="#2E508D">ARM & HAND</li> -->
             </ul>
 
             <div id="controls">
@@ -40,7 +40,7 @@
             </div>
         </div>
         <!-- <urdf-viewer up="+Z" display-shadow="" tabindex="0"></urdf-viewer> -->
-        <urdf-viewer up="+Z" tabindex="0"></urdf-viewer>
+        <urdf-viewer up="+Z" tabindex="0" style="float: right; flex-grow: 1;"></urdf-viewer>
 
         <script src="src.a2b27638.js"></script>
     </body>
