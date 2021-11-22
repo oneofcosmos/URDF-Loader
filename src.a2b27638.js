@@ -44081,7 +44081,7 @@ class OrbitControls extends _three.EventDispatcher {
 
     this.touches = {
       ONE: _three.TOUCH.ROTATE,
-      TWO: _three.TOUCH.DOLLY_PAN
+      TWO: _three.TOUCH.DOLLY_ROTATE
     }; // for reset
 
     this.target0 = this.target.clone();
